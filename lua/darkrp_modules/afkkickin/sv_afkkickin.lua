@@ -1,3 +1,4 @@
+
 AFKKickintab = {}
 AFKKickinMinOpenSlots = 2		--Number of Slots to attempt to leave open
 AFKKickinGracePeriod = 300 -- Grace period you can be afk before there is a chance you get kicked
@@ -12,22 +13,16 @@ function AFKKickinAFK(ply, afkbool)
 		end
 	end
 end
-
 hook.Add("playerSetAFK", "AFKKickinAFK", AFKKickinAFK)
-
-
 
 function AFKConnecting()
 	local playertokick = nil
 	if (#player.GetAll()) + AFKKickinMinOpenSlots >= game.MaxPlayers() then
-		
 		for v,k in pairs(AFKKickintab) do
-			
 			if ( not v:IsValid() ) then
 				AFKKickintab[v] = nil 
 				continue
 			end
-			
 			if AFKKickintab[v] + AFKKickinGracePeriod <= CurTime()  then
 				if !playertokick then
 					playertokick = v
@@ -38,7 +33,6 @@ function AFKConnecting()
 				end
 			end
 		end
-		
 		if ( playertokick ) then
 			playertokick:Kick(AFKKickinKickMessage)
 		end
